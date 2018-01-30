@@ -1,0 +1,38 @@
+body {
+  margin: 0;
+}
+
+.floornav {
+  position: fixed;
+  top: 100px;
+  left: 30px;
+  display: none;
+}
+.floornav a {
+  display: block;
+  padding: 10px;
+  margin-bottom: 1px;
+  width: 30px;
+  height: 30px;
+  line-height: 30px;
+  background: skyblue;
+  color: #fff;
+  text-decoration: none;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+.floornav a.active {
+  background: #f60;
+}
+
+.floor {
+  margin: 100px auto;
+  width: 50%;
+  height: 400px;
+  line-height: 400px;
+  background: gray;
+  text-align: center;
+  font-size: 30px;
+  color: #fff;
+}

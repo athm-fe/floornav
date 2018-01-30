@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Floornav</title>
+  <link rel="stylesheet" href="docs/index.css">
+</head>
+<body>
+  <h1>Floornav</h1>
+  <div class="floornav">
+    <a href="#floor1">1楼</a>
+    <a href="#floor2">2楼</a>
+    <a href="#floor3">3楼</a>
+    <a href="#floor4">4楼</a>
+    <a href="#floor5">5楼</a>
+    <a href="#floor6">6楼</a>
+  </div>
+  
+  <div class="floor">占位</div>
+  <div id="floor1" class="floor">这是1楼</div>
+  <div id="floor2" class="floor">这是2楼</div>
+  <div id="floor3" class="floor">这是3楼</div>
+  <div id="floor4" class="floor">这是4楼</div>
+  <div id="floor5" class="floor">这是5楼</div>
+  <div id="floor6" class="floor">这是6楼</div>
+  <div class="floor">占位</div>
+
+  <script
+    src="https://code.jquery.com/jquery-3.3.1.min.js"
+    integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+    crossorigin="anonymous"></script>
+  <script src="dist/floornav.js"></script>
+  <script>
+    $('.floornav').floornav();
+  </script>
+</body>
+</html>
