@@ -52,7 +52,10 @@ function Floornav(elem, options) {
   this.targets = [];
 
   this.$items.each(function (index, item) {
-    _this.targets.push($(item.getAttribute('href')));
+    var $target = $(item.getAttribute('href'));
+    if ($target && $target.length > 0) {
+      _this.targets.push($target);
+    }
   });
 
   // 确定容器 $container
@@ -124,7 +127,9 @@ Floornav.prototype.check = function () {
   // 判断当前是否有楼层出现
   for (var i = this.targets.length - 1; i >= 0; i--) {
     if (this.targets[i].offset().top <= baseline + threshold) {
-      this._setItemActive(this.$items.eq(i));
+      var id = this.targets[i].attr('id');
+      var $item = this.$elem.find('a[href="#' + String(id) + '"]');
+      this._setItemActive($item);
       break;
     }
   }
@@ -163,6 +168,10 @@ Floornav.prototype._initCheck = function () {
 
 Floornav.prototype._scrollTo = function ($target) {
   var _this4 = this;
+
+  if (!$target || $target.length <= 0) {
+    return;
+  }
 
   // 暂时取消监测
   this.$container.off(Event.SCROLL);
