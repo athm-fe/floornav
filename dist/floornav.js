@@ -1,5 +1,5 @@
 /*!
- * @autofe/floornav v0.1.0
+ * @autofe/floornav v0.1.1
  * (c) 2018 Autohome Inc.
  * Released under the MIT License.
  */
