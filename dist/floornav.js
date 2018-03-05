@@ -1,5 +1,5 @@
 /*!
- * @autofe/floornav v0.1.1
+ * @autofe/floornav v0.2.0
  * (c) 2018 Autohome Inc.
  * Released under the MIT License.
  */
@@ -135,8 +135,25 @@ Floornav.prototype.check = function () {
   }
 };
 
-Floornav.prototype._initJump = function () {
+Floornav.prototype.update = function () {
   var _this2 = this;
+
+  // 搜集导航按钮
+  this.$items = this.$elem.find(Selector.ITEM);
+
+  // 搜集楼层列表
+  this.targets = [];
+
+  this.$items.each(function (index, item) {
+    var $target = $(item.getAttribute('href'));
+    if ($target && $target.length > 0) {
+      _this2.targets.push($target);
+    }
+  });
+};
+
+Floornav.prototype._initJump = function () {
+  var _this3 = this;
 
   this.$elem.on(Event.CLICK, Selector.ITEM, function (e) {
     e.preventDefault();
@@ -145,29 +162,29 @@ Floornav.prototype._initJump = function () {
     var $target = $($item.attr('href'));
 
     // 当前点击按钮设置 current 类
-    _this2._setItemActive($item);
+    _this3._setItemActive($item);
     // 滚动显示导航器对应的楼层
-    _this2._scrollTo($target);
+    _this3._scrollTo($target);
   });
 };
 
 Floornav.prototype._initCheck = function () {
-  var _this3 = this;
+  var _this4 = this;
 
   this.$container.on(String(Event.SCROLL) + ',' + String(Event.RESIZE), function () {
-    if (!_this3._timer) {
-      _this3._timer = setTimeout(function () {
-        _this3.check();
+    if (!_this4._timer) {
+      _this4._timer = setTimeout(function () {
+        _this4.check();
 
-        clearTimeout(_this3._timer);
-        _this3._timer = null;
+        clearTimeout(_this4._timer);
+        _this4._timer = null;
       }, 100);
     }
   });
 };
 
 Floornav.prototype._scrollTo = function ($target) {
-  var _this4 = this;
+  var _this5 = this;
 
   if (!$target || $target.length <= 0) {
     return;
@@ -194,7 +211,7 @@ Floornav.prototype._scrollTo = function ($target) {
     complete = true;
 
     // 恢复监测
-    _this4._initCheck();
+    _this5._initCheck();
   });
 };
 

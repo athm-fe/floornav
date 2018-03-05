@@ -67,6 +67,14 @@ $('#floornav').floornav({
 $('#floornav').floornav('check');
 ```
 
+### `.floornav('update')`
+
+当导航或者楼层有变化时，需要手动更新
+
+```javascript
+$('#floornav').floornav('update');
+```
+
 ## Event
 
 None.
