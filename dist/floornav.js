@@ -1,5 +1,5 @@
 /*!
- * @autofe/floornav v0.2.0
+ * @autofe/floornav v0.3.0
  * (c) 2018 Autohome Inc.
  * Released under the MIT License.
  */
@@ -81,6 +81,7 @@ Floornav.Default = {
   container: window, // 容器
   base: 'center',
   threshold: 0,
+  scrollOffset: 0,
   activeClass: 'active'
 };
 
@@ -202,8 +203,10 @@ Floornav.prototype._scrollTo = function ($target) {
     containerTop = this.$container.offset().top - this.$container.scrollTop();
   }
 
+  var scrollOffset = this.options.scrollOffset;
+
   this._$scroll.stop().animate({
-    scrollTop: $target.offset().top - containerTop
+    scrollTop: $target.offset().top - scrollOffset - containerTop
   }, 300, function () {
     if (complete) {
       return;

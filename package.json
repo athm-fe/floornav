@@ -1,6 +1,6 @@
 {
   "name": "@autofe/floornav",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "A Floornav library based on jQuery",
   "keywords": [
     "library",
