@@ -73,6 +73,8 @@ function Floornav(elem, options) {
 
   // 定时器
   this._timer = null;
+  // 导航器是否展示
+  this.isShown = false;
 
   this.init();
 }
@@ -82,7 +84,8 @@ Floornav.Default = {
   base: 'center',
   threshold: 0,
   scrollOffset: 0,
-  activeClass: 'active'
+  activeClass: 'active',
+  showClass: 'show'
 };
 
 Floornav.prototype.init = function () {
@@ -98,6 +101,8 @@ Floornav.prototype.init = function () {
 };
 
 Floornav.prototype.check = function () {
+  var _this2 = this;
+
   var threshold = this.options.threshold;
   var base = this.options.base;
   var scrollTop = this.$container.scrollTop();
@@ -120,9 +125,21 @@ Floornav.prototype.check = function () {
 
   // 当滚动出现第一个楼层时, 导航器出现; 否则, 隐藏
   if (this.targets[0].offset().top <= baseline + threshold) {
-    this.$elem.fadeIn(500);
+    if (!this.isShown) {
+      this.$elem[0].style.display = 'block';
+      setTimeout(function () {
+        _this2.$elem.addClass(_this2.options.showClass);
+      }, 0);
+      this.isShown = true;
+    }
   } else {
-    this.$elem.fadeOut(500);
+    if (this.isShown) {
+      this.$elem.removeClass(this.options.showClass);
+      this.$elem.one('transitionend', function () {
+        _this2.$elem[0].style.display = 'none';
+      });
+      this.isShown = false;
+    }
   }
 
   // 判断当前是否有楼层出现
@@ -137,7 +154,7 @@ Floornav.prototype.check = function () {
 };
 
 Floornav.prototype.update = function () {
-  var _this2 = this;
+  var _this3 = this;
 
   // 搜集导航按钮
   this.$items = this.$elem.find(Selector.ITEM);
@@ -148,13 +165,13 @@ Floornav.prototype.update = function () {
   this.$items.each(function (index, item) {
     var $target = $(item.getAttribute('href'));
     if ($target && $target.length > 0) {
-      _this2.targets.push($target);
+      _this3.targets.push($target);
     }
   });
 };
 
 Floornav.prototype._initJump = function () {
-  var _this3 = this;
+  var _this4 = this;
 
   this.$elem.on(Event.CLICK, Selector.ITEM, function (e) {
     e.preventDefault();
@@ -163,29 +180,29 @@ Floornav.prototype._initJump = function () {
     var $target = $($item.attr('href'));
 
     // 当前点击按钮设置 current 类
-    _this3._setItemActive($item);
+    _this4._setItemActive($item);
     // 滚动显示导航器对应的楼层
-    _this3._scrollTo($target);
+    _this4._scrollTo($target);
   });
 };
 
 Floornav.prototype._initCheck = function () {
-  var _this4 = this;
+  var _this5 = this;
 
   this.$container.on(String(Event.SCROLL) + ',' + String(Event.RESIZE), function () {
-    if (!_this4._timer) {
-      _this4._timer = setTimeout(function () {
-        _this4.check();
+    if (!_this5._timer) {
+      _this5._timer = setTimeout(function () {
+        _this5.check();
 
-        clearTimeout(_this4._timer);
-        _this4._timer = null;
+        clearTimeout(_this5._timer);
+        _this5._timer = null;
       }, 100);
     }
   });
 };
 
 Floornav.prototype._scrollTo = function ($target) {
-  var _this5 = this;
+  var _this6 = this;
 
   if (!$target || $target.length <= 0) {
     return;
@@ -207,22 +224,24 @@ Floornav.prototype._scrollTo = function ($target) {
 
   this._$scroll.stop().animate({
     scrollTop: $target.offset().top - scrollOffset - containerTop
-  }, 300, function () {
+  }, 150, function () {
     if (complete) {
       return;
     }
     complete = true;
 
     // 恢复监测
-    _this5._initCheck();
+    _this6._initCheck();
   });
 };
 
 Floornav.prototype._setItemActive = function ($item) {
   var activeClass = this.options.activeClass;
 
-  this.$items.removeClass(activeClass);
-  $item.addClass(activeClass);
+  if (!$item.hasClass(activeClass)) {
+    this.$items.removeClass(activeClass);
+    $item.addClass(activeClass);
+  }
 };
 
 /**

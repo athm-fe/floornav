@@ -7,6 +7,11 @@ body {
   top: 100px;
   left: 30px;
   display: none;
+  opacity: 0;
+  transition: opacity .2s linear;
+}
+.floornav.show {
+  opacity: 1;
 }
 .floornav a {
   display: block;

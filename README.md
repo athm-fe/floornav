@@ -46,6 +46,8 @@ Name | Type | Default | Description
 container | object | window | 滚动容器.
 base | string | 'center' | 计算区块位置的参照线, 值可以为 `'center'`, `'top'`, `'bottom'`.
 threshold | number | 0 | 距离参照线多远即认为区块出现.
+activeClass | string | active | 导航器当前项样式
+showClass | string | show | 导航器显示时添加的样式
 scrollOffset | number | 0 | 滚动差值, 假如页面有吸顶元素, 点击导航滚动到对应楼层时会被遮挡, 所以提供了这个参数来解决问题.
 
 ## Methods
