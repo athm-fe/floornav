@@ -4,7 +4,7 @@
 
 
 ```html
-<div class="floornav" data-toggle="floornav">
+<div id="floornav" class="floornav">
   <a href="#floor1">1楼</a>
   <a href="#floor2">2楼</a>
   <a href="#floor3">3楼</a>
@@ -25,16 +25,8 @@
 
 ## Usage
 
-可以通过两种方式来初始化控件, 你可以根据自己的需要来进行选择.
-
-```html
-<div class="floornav" data-toggle="floornav"></div>
-```
-
-或者
-
 ```javascript
-$('.floornav').floornav(options);
+$('#floornav').floornav(options);
 ```
 
 ## Options

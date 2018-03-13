@@ -29,7 +29,6 @@ var Event = {
 };
 
 var Selector = {
-  DATA_TOGGLE: '[data-toggle="floornav"]',
   ITEM: 'a[href]'
 };
 
@@ -267,16 +266,6 @@ function Plugin(config, relatedTarget) {
     }
   });
 }
-
-/**
- * ------------------------------------------------------------------------
- * Data Api implementation
- * ------------------------------------------------------------------------
- */
-
-$(function () {
-  Plugin.call($(Selector.DATA_TOGGLE));
-});
 
 /**
  * ------------------------------------------------------------------------
