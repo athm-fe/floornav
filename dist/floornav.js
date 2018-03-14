@@ -104,26 +104,26 @@ Floornav.prototype.check = function () {
 
   var threshold = this.options.threshold;
   var base = this.options.base;
-  var scrollTop = this.$container.scrollTop();
   var height = this.$container.height();
   var baseline = void 0;
   var containerTop = 0;
 
   if (this.$container[0] !== window) {
-    containerTop = this.$container.offset().top - scrollTop;
+    containerTop = this.$container[0].getBoundingClientRect().top;
   }
 
   // 计算参考线位置
   if (base === 'top') {
-    baseline = containerTop + scrollTop;
+    baseline = containerTop;
   } else if (base == 'bottom') {
-    baseline = containerTop + scrollTop + height;
+    baseline = containerTop + height;
   } else {
-    baseline = containerTop + scrollTop + height / 2;
+    baseline = containerTop + height / 2;
   }
 
   // 当滚动出现第一个楼层时, 导航器出现; 否则, 隐藏
-  if (this.targets[0].offset().top <= baseline + threshold) {
+  var $firstTarget = this.targets[0];
+  if ($firstTarget[0].getBoundingClientRect().top <= baseline + threshold) {
     if (!this.isShown) {
       this.$elem[0].style.display = 'block';
       setTimeout(function () {
@@ -141,8 +141,9 @@ Floornav.prototype.check = function () {
 
   // 判断当前是否有楼层出现
   for (var i = this.targets.length - 1; i >= 0; i--) {
-    if (this.targets[i].offset().top <= baseline + threshold) {
-      var id = this.targets[i].attr('id');
+    var $currentTarget = this.targets[i];
+    if ($currentTarget[0].getBoundingClientRect().top <= baseline + threshold) {
+      var id = $currentTarget.attr('id');
       var $item = this.$elem.find('a[href="#' + String(id) + '"]');
       this._setItemActive($item);
       break;
