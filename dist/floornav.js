@@ -1,6 +1,6 @@
 /*!
  * @autofe/floornav v0.5.1
- * (c) 2018 Autohome Inc.
+ * (c) 2019 Autohome Inc.
  * Released under the MIT License.
  */
 (function (global, factory) {
@@ -174,7 +174,7 @@ Floornav.prototype._initJump = function () {
   this.$elem.on(Event.CLICK, Selector.ITEM, function (e) {
     e.preventDefault();
 
-    var $item = $(e.target);
+    var $item = $(e.currentTarget);
     var $target = $($item.attr('href'));
 
     // 当前点击按钮设置 current 类
